@@ -58,8 +58,8 @@ export default {
     Resultado
   },
   data: () => ({
-    // url: "http://ec2-3-22-171-170.us-east-2.compute.amazonaws.com:8000/api/derivadas/",
-    url: "http://localhost:8000/api/derivadas/",
+    url: "http://ec2-3-22-171-170.us-east-2.compute.amazonaws.com:8000/api/derivadas/",
+    // url: "http://localhost:8000/api/derivadas/",
     valid: true,
     x: 3,
     delta: 0.001,
