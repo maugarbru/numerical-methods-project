@@ -1,9 +1,21 @@
+import json
+from .functions import centradas, simpson
 from django.views import View
-from .models import Method
 from django.http import JsonResponse
 
 # Create your views here.
-class MethodListView(View):
-    def get(self, request):
-        methodlist = Method.objects.all()
-        return JsonResponse(list(methodlist.values()), safe=False)
+class IntegralsMethod(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        result = simpson(data['a'], data['b'], data['n'], data['f'])
+        result_dict = { 'result': result}
+        data.update(result_dict)
+        return JsonResponse(data, safe=False)
+
+class DerivatesMethod(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        result = centradas(data['x'], data['delta'], data['f'])
+        result_dict = { 'result': result}
+        data.update(result_dict)
+        return JsonResponse(data, safe=False)

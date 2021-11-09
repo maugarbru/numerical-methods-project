@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import MethodListView
+from .views import IntegralsMethod, DerivatesMethod
 
 urlpatterns = [
-    path('method/', MethodListView.as_view(), name='method_list')
+    path('integrales/', IntegralsMethod.as_view(), name='integrales_method'),
+    path('derivadas/', DerivatesMethod.as_view(), name='derivadas_method')
 ]
