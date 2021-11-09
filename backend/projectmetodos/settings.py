@@ -55,6 +55,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://ec2-3-17-203-247.us-east-2.compute.amazonaws.com:3000'
 ]
 
 ROOT_URLCONF = 'projectmetodos.urls'
