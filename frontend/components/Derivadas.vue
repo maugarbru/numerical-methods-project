@@ -43,24 +43,34 @@
         <v-btn color="error" class="mr-4" @click="reset">Borrar</v-btn>
       </v-form>
     </v-card>
+    <v-dialog v-model="openResult" max-width="290">
+      <Resultado v-if="resultado" :open="openResult" :result="resultado" />
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Resultado  from './Resultado.vue'
 
 export default {
+  components: {
+    Resultado
+  },
   data: () => ({
-    url: "http://ec2-3-22-171-170.us-east-2.compute.amazonaws.com:8000/api/derivadas/",
+    // url: "http://ec2-3-22-171-170.us-east-2.compute.amazonaws.com:8000/api/derivadas/",
+    url: "http://localhost:8000/api/derivadas/",
     valid: true,
-    x: 0,
-    delta: 0,
+    x: 3,
+    delta: 0.001,
+    f: "x**2",
     rules1: [(v) => !!v || "Campo Requerido"],
     rules2: [
       (v) => !!v || "Campo Requerido",
-      (v) => (v && v.length <= 20) || "Menos de 20 caracteres",
+      (v) => (v && v.length <= 30) || "Menos de 30 caracteres",
     ],
-    f: "",
+    openResult: false,
+    resultado: undefined
   }),
 
   methods: {
@@ -73,6 +83,7 @@ export default {
       this.$refs.form.reset();
     },
     calcularDerivada() {
+      const self = this;
       axios
         .post(this.url, {
           x: this.x,
@@ -81,6 +92,8 @@ export default {
         })
         .then(function (response) {
           console.log(response);
+          self.resultado = response.data;
+          self.openResult = true;
         })
         .catch(function (error) {
           console.log(error);
